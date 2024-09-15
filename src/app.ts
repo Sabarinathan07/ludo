@@ -1,4 +1,4 @@
-import express, { Application } from "express";
+import express, { Application, Request, Response } from "express";
 import http from "http";
 import socketIo, { Server as SocketIOServer } from "socket.io";
 import mongoose from "mongoose";
@@ -20,6 +20,9 @@ app.use("/api/game", gameRoutes);
 // connect DB
 connectDB();
 
+app.get("/", (req: Request, res: Response) => {
+    res.json({ message: "Hello World" });
+});
 
 // Socket connection for real-time gameplay
 io.on("connection", (socket) => {
@@ -27,12 +30,6 @@ io.on("connection", (socket) => {
     handleSocketConnection(socket, io);
     socket.on("disconnect", () => console.log("Client disconnected"));
 });
-
-// Database connection (MongoDB)
-mongoose
-    .connect("mongodb://localhost:27017/ludoGameDB")
-    .then(() => console.log("Connected to MongoDB"))
-    .catch((err) => console.error("Could not connect to MongoDB", err));
 
 const PORT = process.env.PORT || 5000;
 server.listen(PORT, () => {

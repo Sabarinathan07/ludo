@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Socket.IO Lobby Example</title>
+    <script src="https://cdn.socket.io/4.0.1/socket.io.min.js"></script>
+</head>
+
+<body>
+    <h1>Socket.IO Lobby Example</h1>
+    <input id="username" placeholder="Enter your username">
+    <input id="lobbyId" placeholder="Enter lobby ID">
+    <button id="joinLobby">Join Lobby</button>
+    <button id="leaveLobby">Leave Lobby</button>
+    <ul id="usersList"></ul>
+
+    <script>
+        const socket = io("http://localhost:5000");
+
+        document.getElementById('joinLobby').onclick = () => {
+            const username = document.getElementById('username').value;
+            const lobbyId = document.getElementById('lobbyId').value;
+            socket.emit('join_lobby', lobbyId, username);
+        };
+
+        document.getElementById('leaveLobby').onclick = () => {
+            const lobbyId = document.getElementById('lobbyId').value;
+            socket.emit('leave_lobby', lobbyId);
+        };
+
+        socket.on('lobby_update', (users) => {
+            const usersList = document.getElementById('usersList');
+            usersList.innerHTML = '';
+            users.forEach(user => {
+                const li = document.createElement('li');
+                li.textContent = user.username;
+                usersList.appendChild(li);
+            });
+        });
+    </script>
+</body>
+
+</html>
