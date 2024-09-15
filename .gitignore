@@ -1,0 +1,31 @@
+# Node.js
+node_modules/
+dist/
+.env
+
+# TypeScript
+*.tsbuildinfo
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# IDEs and Editors
+.vscode/
+.idea/
+
+# Optional: OS-specific files
+.DS_Store       # macOS
+Thumbs.db       # Windows
+
+# Optional: Coverage directory for test results
+coverage/
+
+# Optional: Ignore build files
+build/
+
+# Ignore yarn lock files if using npm
+yarn.lock
